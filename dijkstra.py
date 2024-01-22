@@ -3,7 +3,7 @@ import heapq
 
 def dijkstra(graph, start):
     n = len(graph)
-    distances = [float('inf')] * n
+    distances = [float("inf")] * n
     distances[start] = 0
     priority_queue = [(0, start)]
 
@@ -21,3 +21,16 @@ def dijkstra(graph, start):
                 heapq.heappush(priority_queue, (distance, neighbor))
 
     return distances
+
+
+if __name__ == "__main__":
+    graph = [
+        [(1, 2), (2, 5)],
+        [(2, 1), (3, 2)],
+        [(3, 5)],
+        [],
+    ]
+    start_node = 0
+    distances = dijkstra(graph, start_node)
+    # the shortest distances from the start node to each node -> [0, 2, 3, 4]
+    print(distances)
