@@ -1,1 +1,2 @@
-# atcoder
+# cp-library
+Competitive Programming Library
