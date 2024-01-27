@@ -116,9 +116,48 @@ class SegTree:
     def _update(self, k: int) -> None:
         self._d[k] = self._op(self._d[2 * k], self._d[2 * k + 1])
 
+    @staticmethod
     def _ceil_pow2(n: int) -> int:
         x = 0
         while (1 << x) < n:
             x += 1
 
         return x
+
+
+if __name__ == "__main__":
+    # Define the operation for the segment tree.
+    # In this case, it's a sum operation.
+    def op(x, y):
+        return x + y
+
+    # Define the identity element for the sum operation.
+    # For sum, the identity element is 0, because adding 0 to any number doesn't change the number.
+    e = 0
+
+    # Create an array of numbers.
+    array = [1, 2, 3, 4, 5]
+
+    # Create the segment tree with the defined operation, identity element, and the array.
+    seg_tree = SegTree(op, e, array)
+
+    # Get the sum of elements from index 1 to 3 (inclusive).
+    print("Sum of elements from index 1 to 3:", seg_tree.prod(1, 4))
+
+    # Update the element at index 2 to 10. -> [1, 2, 10, 4, 5]
+    seg_tree.set(2, 10)
+
+    # After the update, get the sum of elements again from index 1 to 3 (inclusive).
+    print("Sum after update:", seg_tree.prod(1, 4))
+
+    # Get the product of all elements in the array.
+    print("Product of all elements:", seg_tree.all_prod())
+
+    # Find the maximum right index for which the sum of elements from index 1 to that index (not inclusive) is less than or equal to 12.
+    def f(x):
+        return x <= 12
+
+    print("Maximum right index:", seg_tree.max_right(1, f))
+
+    # Find the minimum left index for which the sum of elements from that index to index 3 (not inclusive) is less than or equal to 12.
+    print("Minimum left index:", seg_tree.min_left(3, f))
