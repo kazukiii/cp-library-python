@@ -205,9 +205,50 @@ class LazySegTree:
         self._all_apply(2 * k + 1, self._lz[k])
         self._lz[k] = self._id
 
+    @staticmethod
     def _ceil_pow2(n: int) -> int:
         x = 0
         while (1 << x) < n:
             x += 1
 
         return x
+
+
+if __name__ == "__main__":
+    # Function definitions
+    def op(x: int, y: int) -> int:
+        return x + y  # Function to combine two elements, here it performs addition.
+
+    def e() -> int:
+        return 0  # Identity element for the operation, 0 for addition.
+
+    def mapping(f: int, x: int) -> int:
+        return (
+            f + x
+        )  # Function to apply an update to an element, here it performs addition.
+
+    def composition(f: int, g: int) -> int:
+        return f + g  # Function to combine two updates, here it performs addition.
+
+    def id_() -> int:
+        return 0  # Identity element for the update operation, 0 for addition.
+
+    # Initialize the sequence
+    v = [1, 2, 3, 4, 5]  # Example sequence
+
+    # Create an instance of LazySegTree
+    lst = LazySegTree(op, e(), mapping, composition, id_(), v)
+
+    # Range update (addition)
+    lst.apply(
+        1, 3, 10
+    )  # Add 10 to elements at positions 1 to 2 (0-indexed) -> [1, 12, 13, 4, 5]
+
+    # Get the sum of a range
+    print(
+        lst.prod(1, 4)
+    )  # Get the sum of elements from position 1 to 3 (0-indexed) -> 29
+    print(lst.all_prod())  # Get the sum of all elements -> 35
+
+    # Get a specific element
+    print(lst.get(2))  # Get the element at position 2 (0-indexed)
